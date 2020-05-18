@@ -1,5 +1,6 @@
 <template>
     <div>
+<<<<<<< HEAD
         <!--        首部部分-->
         <div class="top">
             <ul>
@@ -52,11 +53,26 @@
                 </el-row>
 
             </div>
+=======
+<!--        首部部分-->
+        <div class="top">
+            <ul>
+               <li class="top_li" v-for="item in title" :key="item">
+                  <span>{{item}}</span>
+               </li>
+            </ul>
+        </div>
+
+<!--        轮播图部分-->
+        <div>
+            <rotation :images="parent_list"></rotation>
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         </div>
     </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 
     // 这个是首页的 Vue 部分
     import Swiper from "./Swiper";
@@ -240,10 +256,30 @@
             }
         },
         method: {}
+=======
+    import Rotation from "@/components/home/Rotation"
+
+    export default {
+        name: "home",
+        components: {Rotation},
+        data(){
+            return{
+                title:["学习","游戏","偶像","舞蹈","音乐","电视剧","动漫"],
+                parent_list:[require("../../assets/image/1.jpg"),
+                    require("../../assets/image/2.jpg"),
+                    require("../../assets/image/3.jpg"),
+                    require("../../assets/image/4.jpg")]
+            }
+        },
+        method:{
+
+        }
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
     }
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 
 
     /*中间的第二个部分*/
@@ -386,6 +422,15 @@
     }
 
     .top > ul {
+=======
+ .top{
+     width: 100%;
+     height: 50px;
+     border: #303133 1px solid;
+
+ }
+    .top>ul{
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         display: block;
         width: 100%;
         height: 100%;
@@ -395,8 +440,12 @@
         margin: auto;
         box-sizing: border-box;
     }
+<<<<<<< HEAD
 
     .top_li > span {
+=======
+    .top_li>span{
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         padding-top: 5px;
         display: block;
         color: #d4d4d4;
@@ -406,8 +455,12 @@
         width: 100%;
         height: 100%;
     }
+<<<<<<< HEAD
 
     .top_li {
+=======
+    .top_li{
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         border: #ffffff 2px solid;
         box-sizing: border-box;
         border-radius: 25px;
@@ -420,14 +473,22 @@
 
         /*-moz-box-sizing: border-box;*/
     }
+<<<<<<< HEAD
 
     .top_li:hover {
+=======
+    .top_li:hover{
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         border: #1ba8ed 2px solid;
         background-color: #fff;
 
     }
+<<<<<<< HEAD
 
     .top_li > span:hover {
+=======
+    .top_li>span:hover{
+>>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         color: #1ba8ed;
     }
 </style>
