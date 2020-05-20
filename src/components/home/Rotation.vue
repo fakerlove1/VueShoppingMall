@@ -11,13 +11,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-
     import $ from "jquery"
-
-=======
-    import $ from "jquery"
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
     export default {
         name: "Rotation",
         data() {
@@ -36,11 +30,9 @@
         },
         methods:{
             change(){
-<<<<<<< HEAD
                 $(".swipper")
-=======
 
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
+
             }
         }
 

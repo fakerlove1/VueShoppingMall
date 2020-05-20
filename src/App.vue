@@ -1,59 +1,40 @@
 <template>
-<<<<<<< HEAD
-    <div id="app">
-        <home></home>
-    </div>
-=======
-  <div id="app">
-   <home></home>
 
+  <div id="app">
+      <router-view></router-view>
   </div>
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
+
 </template>
 
 <script>
 
-<<<<<<< HEAD
-    import Home from "@/components/home/home";
+    // 这就是首页
+    // import Home from "@/components/home/home";
 
     export default {
         name: 'App',
         components: {
-            Home
 
         }
     }
 </script>
 
 <style>
+    body{
+        margin: 0px;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
     #app {
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        height: 2000px;
+        width: 100%;
+        height: 100%;
         background-color: #F7F7F7;
+        overflow-y: hidden;
     }
-=======
-import Home from "@/components/home/home";
-
-export default {
-  name: 'App',
-  components: {
-    Home
-
-  }
-}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
 </style>

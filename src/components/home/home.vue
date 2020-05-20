@@ -1,13 +1,22 @@
 <template>
     <div>
-<<<<<<< HEAD
-        <!--        首部部分-->
+        <!--        首部部分 导航条-->
         <div class="top">
-            <ul>
-                <li class="top_li" v-for="item in title" :key="item">
-                    <span>{{item}}</span>
-                </li>
-            </ul>
+            <el-row :gutter="20">
+                <el-col :span="13" :offset="3">
+                    <ul class="top_ul">
+                        <li class="top_li" v-for="item in title" :key="item">
+                            <span>{{item}}</span>
+                        </li>
+                    </ul>
+                </el-col>
+
+                <el-col :span="3" :offset="2">
+                  <login :flag="this.$store.state.user.status" :login_image="this.$store.state.user.imgurl"></login>
+                </el-col>
+            </el-row>
+
+
         </div>
 
 
@@ -29,6 +38,11 @@
                     <el-col class="first_right" :span="9">
                         <!--        轮播图部分-->
                         <swiper :images="parent_list"></swiper>
+<!--                        <el-carousel  class="sw">-->
+<!--                            <el-carousel-item v-for="item in parent_list" :key="item">-->
+<!--                               <img :src="item" class="sw_image" >-->
+<!--                            </el-carousel-item>-->
+<!--                        </el-carousel>-->
                     </el-col>
                 </el-row>
 
@@ -39,7 +53,10 @@
                         <!--                      <h_component :imgurl="item.imgurl" :name="item.name" :now_price="item.now_price" :before_price="item.before_price"></h_component>-->
                         <div>
                             <div class="two_top">
-                                <el-image :src="item.imgurl" :fit="fill" class="two_image"></el-image>
+                                <!--                                <el-tooltip class="item" effect="dark" :content="item.name" placement="right-start">-->
+                                <el-image :src="item.imgurl" :fit="fill" class="two_image"
+                                          :title="item.name"></el-image>
+                                <!--                                </el-tooltip>-->
                             </div>
                             <div class="two_middle">
                                 <div>{{item.name}}</div>
@@ -52,31 +69,75 @@
                     </el-col>
                 </el-row>
 
-            </div>
-=======
-<!--        首部部分-->
-        <div class="top">
-            <ul>
-               <li class="top_li" v-for="item in title" :key="item">
-                  <span>{{item}}</span>
-               </li>
-            </ul>
-        </div>
 
-<!--        轮播图部分-->
-        <div>
-            <rotation :images="parent_list"></rotation>
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
+                <!--                主页的第三部分-->
+                <el-row class="three">
+
+                    <!--                    两个排行榜-->
+                    <el-col :span="6">
+                        <div>
+                            <div class="three_title">
+                                <h1>热销排行榜</h1>
+                            </div>
+                            <div class="three_content">
+                                <div v-for="item in rank_first" :key="item" class="three_content_item">
+                                    <div>
+                                        <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
+                                    </div>
+                                    <div>
+                                        <el-image class="three_content_image" :src="item.imgurl" :fit="fill"></el-image>
+                                    </div>
+                                    <div class="three_content_name">
+                                        {{item.name}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </el-col>
+
+                    <!--                    排行榜-->
+                    <el-col :span="6">
+                        <div>
+                            <div class="three_title">
+                                <h1>热销排行榜</h1>
+                            </div>
+                            <div class="three_content">
+                                <div v-for="item in rank_two" :key="item" class="three_content_item">
+                                    <div>
+                                        <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
+                                    </div>
+                                    <div>
+                                        <el-image class="three_content_image" :src="item.imgurl" :fit="fill"></el-image>
+                                    </div>
+                                    <div class="three_content_name">
+                                        {{item.name}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </el-col>
+
+                    <!--                    展示商品-->
+
+                    <el-col :span="12" >
+                        <home_item v-for="item in reduce" class="home_item" :key="item" :images="item.imgurl" :name="item.name" :price="item.price">
+
+                        </home_item>
+                    </el-col>
+                </el-row>
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-<<<<<<< HEAD
 
-    // 这个是首页的 Vue 部分
+
+    // 这个是 轮播图的部分
     import Swiper from "./Swiper";
-
+    import home_item from "./home_item";
+    import login from "./home_login";
 
     const two_object = {
         imgurl: require("../../assets/image/2.jpg"),
@@ -87,9 +148,12 @@
 
     export default {
         name: "home",
-        components: {Swiper},
+        components: {home_item,Swiper,login},
         data() {
             return {
+                // 表示是否登录
+                login:true,
+                login_image: require("../../assets/image/4.jpg"),
                 title: ["学习", "游戏", "偶像", "舞蹈", "音乐", "电视剧", "动漫"],
                 parent_list: [require("../../assets/image/1.jpg"),
                     require("../../assets/image/2.jpg"),
@@ -251,37 +315,140 @@
                         ]
                     }
 
+                ],
+                //排行榜的信息
+                rank_first: [
+                    {
+                        id: 1,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 2,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 3,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 4,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 1,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 2,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 3,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 4,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                ],
+                rank_two: [
+                    {
+                        id: 1,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 2,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 3,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 4,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 1,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 2,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 3,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                    {
+                        id: 4,
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息"
+                    },
+                ],
+
+                // 爆降商品
+                reduce: [
+                    {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old schqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqool学校的信息",
+                        price: "79"
+                    }, {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息",
+                        price: "810"
+                    },
+                    {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息",
+                        price: "803"
+                    },
+                    {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息",
+                        price: "80"
+                    },
+                    {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old schoowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwl学校的信息",
+                        price: "80"
+                    },
+                    {
+                        imgurl: require("../../assets/image/2.jpg"),
+                        name: "vans old school学校的信息",
+                        price: "80"
+                    },
                 ]
-
             }
         },
-        method: {}
-=======
-    import Rotation from "@/components/home/Rotation"
-
-    export default {
-        name: "home",
-        components: {Rotation},
-        data(){
-            return{
-                title:["学习","游戏","偶像","舞蹈","音乐","电视剧","动漫"],
-                parent_list:[require("../../assets/image/1.jpg"),
-                    require("../../assets/image/2.jpg"),
-                    require("../../assets/image/3.jpg"),
-                    require("../../assets/image/4.jpg")]
-            }
-        },
-        method:{
-
-        }
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
     }
 </script>
 
 <style scoped>
-<<<<<<< HEAD
 
 
+
+    .home_item{
+        float: left;
+        width: 30%;
+        height: 320px;
+        margin:10px;
+    }
     /*中间的第二个部分*/
 
     .two_middle {
@@ -342,21 +509,24 @@
     }
 
     /*中间的第一个部分*/
-    .left_li{
+    .left_li {
 
     }
-    .left_li>a:first-child{
+
+    .left_li > a:first-child {
         font-size: 18px;
         font-weight: 500;
         /*font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;*/
     }
-    .left_li>a{
+
+    .left_li > a {
         text-decoration: none;
         color: #555;
         white-space: nowrap;
-        margin: 0 5px  0;
-        font-family: "PingFang SC","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        margin: 0 5px 0;
+        font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     }
+
     .content_first {
         height: 400px;
         background-color: #fff;
@@ -389,7 +559,7 @@
     .middle {
         margin-top: 10px;
         width: 100%;
-        height: 1000px;
+        height: 2000px;
     }
 
     /*最中央的部分*/
@@ -414,81 +584,95 @@
     }
 
     /*下面的 div --top 的所有属性*/
+    /*设置背景颜色*/
     .top {
         width: 100%;
-        height: 50px;
-        border: #303133 1px solid;
-
+        height: 52px;
+        background-color: #444444;
     }
-
-    .top > ul {
-=======
- .top{
-     width: 100%;
-     height: 50px;
-     border: #303133 1px solid;
-
- }
-    .top>ul{
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
-        display: block;
+    /*展示成块状元素*/
+    .top_ul {
         width: 100%;
-        height: 100%;
-        background-color: #ffffff;
+        height: 52px;
         list-style: none;
         padding: 0;
         margin: auto;
         box-sizing: border-box;
     }
-<<<<<<< HEAD
 
+    /*这个是导航条的样式*/
     .top_li > span {
-=======
-    .top_li>span{
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
-        padding-top: 5px;
+        line-height: 48px;
         display: block;
         color: #d4d4d4;
         vertical-align: middle;
         text-align: center;
         font-size: 20px;
         width: 100%;
-        height: 100%;
+        height: 48px;
     }
-<<<<<<< HEAD
 
+    /* top 中的 li 样式*/
     .top_li {
-=======
-    .top_li{
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         border: #ffffff 2px solid;
         box-sizing: border-box;
         border-radius: 25px;
-        width: 8%;
-        display: inline-block;
-        height: 100%;
-        margin-left: 5px;
+        width: 12%;
+        float: left;
+        height: 48px;
+        margin-left: 12px;
 
-        /*-webkit-box-sizing: border-box;*/
-
-        /*-moz-box-sizing: border-box;*/
     }
-<<<<<<< HEAD
+
 
     .top_li:hover {
-=======
-    .top_li:hover{
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
+
         border: #1ba8ed 2px solid;
         background-color: #fff;
 
     }
-<<<<<<< HEAD
 
     .top_li > span:hover {
-=======
-    .top_li>span:hover{
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
         color: #1ba8ed;
     }
+
+    /*    中间的第三个部分*/
+    .three_content {
+        height: 400px;
+        width: 100%;
+    }
+
+    .three_content > div {
+        height: 100px;
+        margin-bottom: 5px;
+    }
+
+    .three_content_item > div {
+        float: left;
+        margin-left: 5px;
+        width: 30%;
+        height: 100%;
+    }
+
+    .three_content_image {
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .three_content_name {
+        color: #333;
+        overflow: hidden;
+        font-family: Microsoft Yahei, PingFangSC-Medium, sans-serif, serif;
+        font-size: 14px;
+        text-align: center;
+        white-space: nowrap;
+        line-height: 100px;
+    }
+
+    .three_content_id {
+        margin-top: 30%;
+    }
+
+
 </style>

@@ -10,14 +10,12 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "element-ui": "^2.13.1",
-<<<<<<< HEAD
-    "jquery": "^3.5.1",
-=======
     "jquery": "^3.5.0",
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
     "swiper": "^5.3.8",
     "vue": "^2.6.11",
-    "vue-awesome-swiper": "^4.1.1"
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.0",
@@ -26,22 +24,14 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-<<<<<<< HEAD
     "vue-template-compiler": "^2.6.11",
     "webpack-cli": "^3.3.11"
-=======
-    "vue-template-compiler": "^2.6.11"
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
   },
   "eslintConfig": {
     "root": true,
     "env": {
-<<<<<<< HEAD
       "node": true,
       "jquery": true
-=======
-      "node": true
->>>>>>> 3cc25cd51f9ad9ae5a46fae7a7d02d930a6000f4
     },
     "extends": [
       "plugin:vue/essential",
