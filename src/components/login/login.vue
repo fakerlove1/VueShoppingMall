@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="content">
-            <el-tabs stretch="true" v-model="flag" class="tab">
+            <el-tabs stretch v-model="flag" class="tab">
                 <el-tab-pane label="登录" name="login">
                     <!--                    登录的 布局-->
                     <form class="login_form">
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="item">
-                            <el-radio v-model="radio" label="1" class="gender">男</el-radio>
+                            <el-radio v-model="radio" label="1" class="gender" >男</el-radio>
                             <el-radio v-model="radio" label="2" class="gender">女</el-radio>
                         </div>
 
@@ -98,9 +98,7 @@
             }
         },
         mounted() {
-            console.log(document.documentElement.clientHeight)
-
-            $(".login").height($(document).height());
+            $(".login").height(   window.screen.availHeight);
         },
         methods: {
 

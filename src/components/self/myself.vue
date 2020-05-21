@@ -3,13 +3,21 @@
         <el-row class="content tac">
 
             <!--            这个是 旁边的菜单栏-->
-            <el-col class="left" :span="3" offset="3">
+            <el-col class="left" :span="3" :offset="3">
                 <el-menu
-                        default-active="2"
+                        :default-active="$route.path"
                         class="el-menu-vertical-demo"
                         @open="handleOpen"
-                        @close="handleClose">
-                    <!--                    -->
+                        @close="handleClose"
+                        router
+                >
+
+
+                    <el-menu-item index="/">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">首页</span>
+                    </el-menu-item>
+
                     <el-submenu index="1">
 
                         <template slot="title">
@@ -17,35 +25,44 @@
                             <span>个人信息</span>
                         </template>
 
-                        <el-menu-item index="1-1">
-
-                            <span slot="title">个人信息查看</span>
+                        <el-menu-item index="/myself" >
+                            <span slot="title">查看</span>
                         </el-menu-item>
-                        <el-menu-item index="1-2">
-                            <span slot="title">个人信息修改</span>
+                        <el-menu-item index="/myself/addinformation" >
+                            <span slot="title">修改</span>
                         </el-menu-item>
-                        <el-menu-item index="1-2">
-                            <span slot="title">添加收获地址</span>
+                        <el-menu-item index="/myself/address" >
+                            <span slot="title">添加地址</span>
                         </el-menu-item>
                     </el-submenu>
 
-                    <el-menu-item index="2">
+                    <el-menu-item index="/myself/purse">
                         <i class="el-icon-menu"></i>
                         <span slot="title">我的钱包</span>
                     </el-menu-item>
-                    <el-menu-item index="3">
+                    <el-menu-item index="/myself/account">
                         <i class="el-icon-document"></i>
                         <span slot="title">我的账单</span>
                     </el-menu-item>
+
+                    <el-menu-item index="/myself/shoppingcar">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">我的购物车</span>
+                    </el-menu-item>
                     <el-menu-item index="4">
                         <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
+                        <span slot="title">我的动态</span>
+                    </el-menu-item>
+
+                    <el-menu-item index="5">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">我的关注</span>
                     </el-menu-item>
                 </el-menu>
             </el-col>
 
             <!--            这个是里面的小内容 -->
-            <el-col :span="18" class="right">
+            <el-col :span="18" class="right" >
                 <router-view ></router-view>
             </el-col>
         </el-row>

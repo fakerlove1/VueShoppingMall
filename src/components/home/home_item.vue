@@ -1,5 +1,5 @@
 <template>
-    <div class="item">
+    <div class="item" @click.prevent="jump" >
         <div class="d_image">
             <el-image :src="images" class="image"></el-image>
         </div>
@@ -20,8 +20,8 @@
 
 <script>
     // 这个是  首页home 中 商品组件
-    import price from "./d_price";
-    import find from "./d_find";
+    import price from "./cart_price";
+    import find from "./cart_find";
     export default {
         name: "home_item",
         data(){
@@ -38,6 +38,12 @@
             price:String
         },
         template:{
+
+        },
+        methods:{
+            jump(){
+                this.$router.push("/commodity")
+            }
 
         }
     }

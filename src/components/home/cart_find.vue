@@ -18,7 +18,8 @@
     }
 
     .d_b{
-        height: 80px;
+        margin-top: 5%;
+        height: 60px;
         width: 100%;
     }
 </style>

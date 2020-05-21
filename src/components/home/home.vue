@@ -12,7 +12,7 @@
                 </el-col>
 
                 <el-col :span="3" :offset="2">
-                  <login :flag="this.$store.state.user.status" :login_image="this.$store.state.user.imgurl"></login>
+                    <login :flag="this.$store.state.user.status" :login_image="this.$store.state.user.imgurl"></login>
                 </el-col>
             </el-row>
 
@@ -38,36 +38,38 @@
                     <el-col class="first_right" :span="9">
                         <!--        轮播图部分-->
                         <swiper :images="parent_list"></swiper>
-<!--                        <el-carousel  class="sw">-->
-<!--                            <el-carousel-item v-for="item in parent_list" :key="item">-->
-<!--                               <img :src="item" class="sw_image" >-->
-<!--                            </el-carousel-item>-->
-<!--                        </el-carousel>-->
+                        <!--                        <el-carousel  class="sw">-->
+                        <!--                            <el-carousel-item v-for="item in parent_list" :key="item">-->
+                        <!--                               <img :src="item" class="sw_image" >-->
+                        <!--                            </el-carousel-item>-->
+                        <!--                        </el-carousel>-->
                     </el-col>
                 </el-row>
 
+
+                <el-divider></el-divider>
 
                 <!--                下面开始电商 的第二个部分-->
                 <el-row class="two">
                     <el-col :span="4" class="two_content" v-for="item in two" :key="item">
-                        <!--                      <h_component :imgurl="item.imgurl" :name="item.name" :now_price="item.now_price" :before_price="item.before_price"></h_component>-->
-                        <div>
-                            <div class="two_top">
-                                <!--                                <el-tooltip class="item" effect="dark" :content="item.name" placement="right-start">-->
-                                <el-image :src="item.imgurl" :fit="fill" class="two_image"
-                                          :title="item.name"></el-image>
-                                <!--                                </el-tooltip>-->
+                        <el-card shadow="hover" body-style="padding:'10px'">
+                            <div>
+                                <div class="two_top">
+                                    <el-image :src="item.imgurl" :fit="fill" class="two_image"></el-image>
+                                </div>
+                                <div class="two_middle">
+                                    <div>{{item.name}}</div>
+                                </div>
+                                <div class="two_buttom">
+                                    <div class="two_now">￥{{item.now_price}}</div>
+                                    <div class="two_before">￥{{item.before_price}}</div>
+                                </div>
                             </div>
-                            <div class="two_middle">
-                                <div>{{item.name}}</div>
-                            </div>
-                            <div class="two_buttom">
-                                <div class="two_now">￥{{item.now_price}}</div>
-                                <div class="two_before">￥{{item.before_price}}</div>
-                            </div>
-                        </div>
+                        </el-card>
                     </el-col>
                 </el-row>
+
+                <el-divider></el-divider>
 
 
                 <!--                主页的第三部分-->
@@ -119,8 +121,9 @@
 
                     <!--                    展示商品-->
 
-                    <el-col :span="12" >
-                        <home_item v-for="item in reduce" class="home_item" :key="item" :images="item.imgurl" :name="item.name" :price="item.price">
+                    <el-col :span="12">
+                        <home_item v-for="item in reduce" class="home_item" :key="item" :images="item.imgurl"
+                                   :name="item.name" :price="item.price">
 
                         </home_item>
                     </el-col>
@@ -148,11 +151,11 @@
 
     export default {
         name: "home",
-        components: {home_item,Swiper,login},
+        components: {home_item, Swiper, login},
         data() {
             return {
                 // 表示是否登录
-                login:true,
+                login: true,
                 login_image: require("../../assets/image/4.jpg"),
                 title: ["学习", "游戏", "偶像", "舞蹈", "音乐", "电视剧", "动漫"],
                 parent_list: [require("../../assets/image/1.jpg"),
@@ -443,12 +446,13 @@
 
 
 
-    .home_item{
+    .home_item {
         float: left;
         width: 30%;
         height: 320px;
-        margin:10px;
+        margin: 10px;
     }
+
     /*中间的第二个部分*/
 
     .two_middle {
@@ -474,7 +478,7 @@
     }
 
     .two_buttom {
-        border: 1px solid #e1251b;
+        /*border: 1px solid #e1251b;*/
     }
 
     .two_buttom > div {
@@ -568,7 +572,7 @@
         display: block;
         width: 80%;
         margin: auto;
-        border: 1px solid red;
+        /*border: 1px solid red;*/
 
     }
 
@@ -588,8 +592,9 @@
     .top {
         width: 100%;
         height: 52px;
-        background-color: #444444;
+        background-color: rgba(12, 12, 12, 0.9);;
     }
+
     /*展示成块状元素*/
     .top_ul {
         width: 100%;
@@ -614,7 +619,7 @@
 
     /* top 中的 li 样式*/
     .top_li {
-        border: #ffffff 2px solid;
+        /*border: #ffffff 2px solid;*/
         box-sizing: border-box;
         border-radius: 25px;
         width: 12%;
@@ -627,7 +632,7 @@
 
     .top_li:hover {
 
-        border: #1ba8ed 2px solid;
+        /*border: #121212 2px solid;*/
         background-color: #fff;
 
     }

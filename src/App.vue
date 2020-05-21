@@ -34,7 +34,7 @@
         color: #2c3e50;
         width: 100%;
         height: 100%;
-        background-color: #F7F7F7;
+
         overflow-y: hidden;
     }
 </style>
