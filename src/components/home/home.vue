@@ -5,7 +5,7 @@
             <el-row :gutter="20">
                 <el-col :span="13" :offset="3">
                     <ul class="top_ul">
-                        <li class="top_li" v-for="item in title" :key="item">
+                        <li class="top_li" v-for="(item,index) in title" :key="index">
                             <span>{{item}}</span>
                         </li>
                     </ul>
@@ -27,9 +27,9 @@
                 <el-row class="content_first">
                     <el-col class="first_left" :span="3">
                         <ul class="left_ul">
-                            <li v-for="item in ti" :key="item" class="left_li">
+                            <li v-for="(item,index) in ti" :key="index" class="left_li">
                                 <a :href="item.url">{{item.title}}</a>
-                                <a v-for="temp in item.branch" :href="temp.url" :key="temp">
+                                <a v-for="(temp,ind) in item.branch" :href="temp.url" :key="ind">
                                     {{temp.title}}
                                 </a>
                             </li>
@@ -51,11 +51,11 @@
 
                 <!--                下面开始电商 的第二个部分-->
                 <el-row class="two">
-                    <el-col :span="4" class="two_content" v-for="item in two" :key="item">
+                    <el-col :span="4" class="two_content" v-for="(item,index) in two" :key="index">
                         <el-card shadow="hover" body-style="padding:'10px'">
                             <div>
                                 <div class="two_top">
-                                    <el-image :src="item.imgurl" :fit="fill" class="two_image"></el-image>
+                                    <el-image :src="item.imgurl"  class="two_image"></el-image>
                                 </div>
                                 <div class="two_middle">
                                     <div>{{item.name}}</div>
@@ -82,12 +82,12 @@
                                 <h1>热销排行榜</h1>
                             </div>
                             <div class="three_content">
-                                <div v-for="item in rank_first" :key="item" class="three_content_item">
+                                <div v-for="(item,index) in rank_first" :key="index" class="three_content_item">
                                     <div>
                                         <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
                                     </div>
                                     <div>
-                                        <el-image class="three_content_image" :src="item.imgurl" :fit="fill"></el-image>
+                                        <el-image class="three_content_image" :src="item.imgurl" ></el-image>
                                     </div>
                                     <div class="three_content_name">
                                         {{item.name}}
@@ -104,12 +104,12 @@
                                 <h1>热销排行榜</h1>
                             </div>
                             <div class="three_content">
-                                <div v-for="item in rank_two" :key="item" class="three_content_item">
+                                <div v-for="(item,index) in rank_two" :key="index" class="three_content_item">
                                     <div>
                                         <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
                                     </div>
                                     <div>
-                                        <el-image class="three_content_image" :src="item.imgurl" :fit="fill"></el-image>
+                                        <el-image class="three_content_image" :src="item.imgurl" ></el-image>
                                     </div>
                                     <div class="three_content_name">
                                         {{item.name}}
@@ -122,9 +122,8 @@
                     <!--                    展示商品-->
 
                     <el-col :span="12">
-                        <home_item v-for="item in reduce" class="home_item" :key="item" :images="item.imgurl"
+                        <home_item v-for="(item,index) in reduce" :goods_id="item.goods_id" class="home_item" :key="index" :images="item.imgurl"
                                    :name="item.name" :price="item.price">
-
                         </home_item>
                     </el-col>
                 </el-row>
@@ -141,6 +140,7 @@
     import Swiper from "./Swiper";
     import home_item from "./home_item";
     import login from "./home_login";
+    import ajax from "../ajax/ajax";
 
     const two_object = {
         imgurl: require("../../assets/image/2.jpg"),
@@ -324,12 +324,14 @@
                     {
                         id: 1,
                         imgurl: require("../../assets/image/2.jpg"),
-                        name: "vans old school学校的信息"
+                        name: "vans old school学校的信息",
+                        goods_id:"",
                     },
                     {
                         id: 2,
                         imgurl: require("../../assets/image/2.jpg"),
-                        name: "vans old school学校的信息"
+                        name: "vans old school学校的信息",
+                        goods_id:"",
                     },
                     {
                         id: 3,
@@ -362,6 +364,7 @@
                         name: "vans old school学校的信息"
                     },
                 ],
+
                 rank_two: [
                     {
                         id: 1,
@@ -410,35 +413,137 @@
                     {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old schqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqool学校的信息",
-                        price: "79"
+                        price: 79
                     }, {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old school学校的信息",
-                        price: "810"
+                        price: 810
                     },
                     {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old school学校的信息",
-                        price: "803"
+                        price: 803
                     },
                     {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old school学校的信息",
-                        price: "80"
+                        price: 80
                     },
                     {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old schoowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwl学校的信息",
-                        price: "80"
+                        price: 80
                     },
                     {
                         imgurl: require("../../assets/image/2.jpg"),
                         name: "vans old school学校的信息",
-                        price: "80"
+                        price: 80
                     },
                 ]
             }
         },
+        mounted() {
+            const mes=this.$message;
+            // 清空数组
+            const th=this;
+            ajax.shopping(function (res,code) {
+                if(code==200&&res.code==200){
+                    th.two=[];
+                    // 添加 数据 ，一行的数据
+                    for(var i=0;i<5;i++){
+                        var item=res.data.goods[i];
+                        var ob =new Object();
+                        ob.imgurl=item.banner_img;
+                        ob.name=item.goods_name;
+                        ob.now_price=item.sell_price;
+                        ob.before_price=item.original_price;
+                        th.two.push(ob);
+                    }
+                }else{
+                    if(code==400){
+                        mes({
+                            showClose: true,
+                            message: '对不起，登录失败，请检查网络',
+                            type: 'error'
+                        });
+                    }else{
+                        mes({
+                            showClose: true,
+                            message: res.message,
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+            ajax.RankFirst(function (res,code) {
+                if(code==200){
+                    th.rank_first=[];
+                    // 添加 数据 ，一行的数据
+                    for(var i=0;i<8;i++){
+                        var item=res.data.goods[i];
+                        var ob =new Object();
+                        ob.imgurl=item.banner_img;
+                        ob.name=item.goods_name;
+                        ob.id=i+1;
+                        ob.goods_id=item.goods_id;
+                        th.rank_first.push(ob);
+                    }
+                }else{
+                    mes({
+                        showClose: true,
+                        message: '错了哦，这是一条错误消息',
+                        type: 'error'
+                    });
+                }
+            });
+
+            ajax.RankTwo(function (res,code) {
+                if(code==200){
+                    th.rank_two=[];
+                    // 添加 数据 ，一行的数据
+                    for(var i=0;i<8;i++){
+                        var item=res.data.goods[i];
+                        var ob =new Object();
+                        ob.imgurl=item.banner_img;
+                        ob.name=item.goods_name;
+                        ob.id=i+1;
+                        ob.goods_id=item.goods_id;
+                        th.rank_two.push(ob);
+                    }
+                }else{
+                    mes({
+                        showClose: true,
+                        message: '加载失败，请检查网络',
+                        type: 'error'
+                    });
+                }
+            });
+
+            ajax.Reduce(function (res,code) {
+                if(code==200){
+                    th.reduce=[];
+                    // 添加 数据 ，一行的数据
+                    for(var i=0;i<6;i++){
+                        var item=res.data.goods[i];
+                        var ob =new Object();
+                        ob.imgurl=item.banner_img;
+                        ob.name=item.goods_name;
+                        ob.price=item.sell_price;
+                        ob.goods_id=item.goods_id;
+                        th.reduce.push(ob);
+                    }
+                }else{
+                    mes({
+                        showClose: true,
+                        message: '加载失败，请检查网络',
+                        type: 'error'
+                    });
+                }
+            });
+
+
+
+        }
     }
 </script>
 
@@ -456,6 +561,8 @@
     /*中间的第二个部分*/
 
     .two_middle {
+        height: 50px;
+        line-height: 50px;
         margin: 5px;
         font-size: 16px;
         font-weight: 400;
@@ -467,24 +574,27 @@
 
     .two {
         margin-top: 30px;
-        height: 200px;
+        margin-bottom: 30px;
+        height: 350px;
         width: 100%;
         background-color: #fff;
     }
 
     .two_content {
-        height: 100%;
-        margin: 0 10px;
+        height: 350px;
+        margin: 0 1% 0 0;
+        width: 19%;
     }
 
     .two_buttom {
-        /*border: 1px solid #e1251b;*/
+        height: 50px;
     }
 
     .two_buttom > div {
-        display: inline-block;
-        height: 20%;
+        float: left;
+        height: 30px;
         width: 50%;
+        line-height: 30px;
     }
 
     .two_now {
@@ -503,12 +613,12 @@
     }
 
     .two_top {
-        height: 100%;
+        height: 200px;
         width: 100%;
     }
 
     .two_image {
-        height: 100%;
+        height: 190px;
         width: 100%;
     }
 
@@ -576,9 +686,9 @@
 
     }
 
-    .middle_content > div {
-        display: flex;
-    }
+    /*.middle_content > div {*/
+    /*    display: flex;*/
+    /*}*/
 
 
     /*轮播图的地方 */
@@ -666,12 +776,18 @@
     }
 
     .three_content_name {
+
         color: #333;
-        overflow: hidden;
+
         font-family: Microsoft Yahei, PingFangSC-Medium, sans-serif, serif;
         font-size: 14px;
         text-align: center;
-        white-space: nowrap;
+        white-space:pre;
+        overflow: hidden;
+        word-wrap:break-word;
+        word-break:break-all;
+        text-overflow: ellipsis;
+        letter-spacing: 1px;
         line-height: 100px;
     }
 

@@ -11,11 +11,9 @@
                         @close="handleClose"
                         router
                 >
-
-
                     <el-menu-item index="/">
                         <i class="el-icon-menu"></i>
-                        <span slot="title">首页</span>
+                        <span slot="title">我的首页</span>
                     </el-menu-item>
 
                     <el-submenu index="1">
@@ -32,7 +30,7 @@
                             <span slot="title">修改</span>
                         </el-menu-item>
                         <el-menu-item index="/myself/address" >
-                            <span slot="title">添加地址</span>
+                            <span slot="title">地址</span>
                         </el-menu-item>
                     </el-submenu>
 
@@ -45,18 +43,20 @@
                         <span slot="title">我的账单</span>
                     </el-menu-item>
 
-                    <el-menu-item index="/myself/shoppingcar">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">我的购物车</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
+
+                    <el-menu-item index="/myself/interest">
                         <i class="el-icon-setting"></i>
                         <span slot="title">我的动态</span>
                     </el-menu-item>
 
-                    <el-menu-item index="5">
+                    <el-menu-item index="/myself/trend">
                         <i class="el-icon-setting"></i>
                         <span slot="title">我的关注</span>
+                    </el-menu-item>
+
+                    <el-menu-item index="/myself/shoppingcar">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">我的购物车</span>
                     </el-menu-item>
                 </el-menu>
             </el-col>
@@ -110,7 +110,8 @@
     }
     .right{
         background-color: #fff;
-        height: 100%;
+        height: auto;
+        overflow-y:scroll;
     }
     .left>ul{
         height: 100%;

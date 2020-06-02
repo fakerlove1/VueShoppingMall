@@ -25,10 +25,11 @@
                     <div class="item_content price"> ${{shopping.price}}</div>
                 </div>
 
+                <!--                这里是 选择 的标签-->
                 <div class="item" v-for="(item,index) in type" :key="index">
                     <div class="title">{{item.name}}</div>
                     <div class="item_content">
-                        <buy_item :tabledata="item.data"></buy_item>
+                        <commodity_item :tabledata="item.data"></commodity_item>
                     </div>
                 </div>
 
@@ -40,7 +41,7 @@
                 </div>
 
                 <div class="item">
-                    <el-button type="danger" round class="button_buy" @click="commodity">立即购买</el-button>
+                    <el-button type="danger" round class="button_buy" @click="buy">立即购买</el-button>
                     <el-button type="danger" round class="button_add" @click="add">加入购物车</el-button>
                 </div>
             </div>
@@ -50,28 +51,116 @@
 
 <script>
     import $ from 'jquery';
-    import buy_item from "./commodity_item";
+    import commodity_item from "./commodity_item";
+    import ajax from "../ajax/ajax";
+    import {Loading} from 'element-ui';
+
     // 商品的页面
     export default {
         name: "buy",
-        components: {buy_item},
+        components: {commodity_item},
         methods: {
-            buy(){
-
+            // 购买需要跑到添加页面
+            buy() {
+                var goods={
+                    id:this.shopping.goods_id,
+                    name:this.shopping.name,
+                    number: this.number,
+                    price:this.shopping.price*this.number
+                }
+                this.$router.push(
+                    {
+                        path: "/buy",
+                        query: {
+                            TableData:[goods]
+                        }
+                    })
             },
-            add(){
+            // 添加购物车
+            add() {
+                // 表示没有登录
+                if (this.$store.state.user.status == false) {
+                    this.$alert('请先登录', '错误提示', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                            // this.$message({
+                            //     type: 'info',
+                            //     message: `action: ${ action }`
+                            // });
+                            console.log(action);
+                            this.$router.push("/login");
+                        }
+                    });
+                } else {
+                    const mes = this.$message;
+                    if (this.isadd == false) {
+                        // this.isadd=true;
+                        // 清空数组
+                        ajax.ShoppingCarAdd(this.shopping.goods_id, this.$store.state.user.userid, this.number,
+                            function (res, code) {
+                                if (code == 200 && res.code == 200) {
+                                    mes({
+                                        showClose: true,
+                                        message: res.message,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    if (code == 400) {
+                                        mes({
+                                            showClose: true,
+                                            message: '对不起，登录失败，请检查网络',
+                                            type: 'error'
+                                        });
+                                    } else {
+                                        mes({
+                                            showClose: true,
+                                            message: res.message,
+                                            type: 'error'
+                                        });
+                                    }
+                                }
+                            })
+                    } else {
+                        mes({
+                            showClose: true,
+                            message: "对不起你已经添加过了",
+                            type: 'error'
+                        });
+                    }
+
+                }
 
             }
         },
         mounted() {
-            console.log($(".item"))
+            let loadingInstance = Loading.service(this.load);
+            // 设置长度
             $(".item").each(function () {
                 const h = $(this).find(".item_content").height();
                 $(this).height(h);
-                // if(h==undefined){
-                //     $(this).height(100)
-                // }
             });
+
+            // 上网寻找信息
+            this.shopping.goods_id = this.$route.params.goods_id;
+            const th = this;
+            const mes = this.$message;
+            ajax.Goods(this.shopping.goods_id, function (res, code) {
+                loadingInstance.close();
+                if (code == 200) {
+                    const data = res.data.GoodsPerson;
+                    console.log(data)
+                    th.shopping.imgurl = data.banner_img;
+                    th.shopping.last = data.surplus;
+                    th.shopping.name = data.goods_name;
+                    th.shopping.price = data.sell_price;
+                } else {
+                    mes({
+                        showClose: true,
+                        message: '对不起，商品信息有误',
+                        type: 'error'
+                    });
+                }
+            })
         },
         data() {
             return {
@@ -82,6 +171,7 @@
                     price: 100,
                     good: 21,
                     star: 3.5,
+                    goods_id: 1,
                 },
                 number: 1,
                 type: [
@@ -98,24 +188,28 @@
                         flag: "",
                     }
                 ],
-                select: []
+                select: [],
+                load: {fullscreen: true},
+                isadd: false,
             }
         }
     }
 </script>
 
 <style scoped>
-    .button_buy{
-       margin-top: 5%;
+    .button_buy {
+        margin-top: 5%;
         height: 48px;
         margin-right: 30px;
         width: 30%;
     }
-    .button_add{
+
+    .button_add {
         margin-top: 5%;
         height: 48px;
         width: 30%;
     }
+
     .name {
         color: #333333;
         font-size: 24px;

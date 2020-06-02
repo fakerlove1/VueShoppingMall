@@ -1,8 +1,8 @@
 <template>
     <swiper :options="swiperOption" class="s">
         <!-- v-for="(item, index) in auditData" :key="index" -->
-        <swiper-slide v-for="item in images" class="it" :key="item" >
-            <el-image :src="item" :fit="fill"/>
+        <swiper-slide v-for="(item,index) in images" class="it" :key="index" >
+            <el-image :src="item" />
         </swiper-slide>
 <!--        -->
         <!-- 分页器就是下面的小圆点-->

@@ -12,12 +12,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 //这里是使用了路由
-import router from "./index";
+import router from "./router";
 import store from "./store";
 
 Vue.config.productionTip = false
 
 import VueAMap from 'vue-amap';
+import jqueryForm from 'jquery-form'
+Vue.use(jqueryForm)
+
 
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({

@@ -12,7 +12,8 @@ export default new Vuex.Store({
             imgurl:require("./assets/image/1.jpg"),
             username:"小白",
             userid:'',
-            gender:"1",
+            userlev:1,
+            gender:1,
             money:0,
         }
     },

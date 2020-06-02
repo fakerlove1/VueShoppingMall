@@ -156,8 +156,8 @@
         methods: {},
         mounted: {
             height() {
-                $(".all").height($(document).height());
-                $(".add").height($(document).height() / 3);
+                $(".all").height("600px");
+                $(".add").height("200px");
             }
         }
     }

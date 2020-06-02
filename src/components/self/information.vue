@@ -22,7 +22,7 @@
 
         </div>
 
-        <div v-for="item in person" :key="item" class="item">
+        <div v-for="(item,index) in person" :key="index" class="item">
             <div class="item_id">{{item.id}}: </div>
             <div class="item_name">{{item.name}}</div>
         </div>
@@ -43,7 +43,7 @@
                   },
                   {
                       id: "性别",
-                      name: this.$store.state.user.gender=='1'?"男":"女"
+                      name: this.$store.state.user.gender=='0'?"男":"女"
                   },
 
               ]

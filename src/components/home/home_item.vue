@@ -1,5 +1,5 @@
 <template>
-    <div class="item" @click.prevent="jump" >
+    <div class="item" @click.prevent="jump(goods_id)" >
         <div class="d_image">
             <el-image :src="images" class="image"></el-image>
         </div>
@@ -7,7 +7,7 @@
             {{name}}
         </div>
         <div @mouseover="tag='find'" @mouseout="tag='price'" class="d_p" >
-            <transition name="el-fade-in-linear" mode="out-in" :duration="200" >
+            <transition name="price-fade" mode="out-in" :duration="200" >
                 <component :is="tag">
                     ${{price}}
                 </component>
@@ -35,16 +35,17 @@
         props:{
             images:String,
             name:String,
-            price:String
+            price:Number,
+            goods_id:Number,
+
         },
         template:{
 
         },
         methods:{
-            jump(){
-                this.$router.push("/commodity")
+            jump(goods_id){
+                this.$router.push("/commodity/"+goods_id)
             }
-
         }
     }
 </script>
@@ -83,6 +84,7 @@
         word-break: break-all;
         overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 60px;
         font-size: 14px;
         margin-bottom: 10px;
     }

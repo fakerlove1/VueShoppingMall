@@ -12,6 +12,13 @@ import account from "./components/self/account";
 import shoppingcar from "./components/self/shopping_car";
 import purse from "./components/self/purse";
 import commodity from "./components/shopping/commodity";
+import enterprise from "./components/enterprise/enterprise";
+import buy from "./components/shopping/buy";
+import trend from "./components/self/trend";
+import interest from "./components/self/interest";
+import goods_modify from "./components/enterprise/goods_modify";
+import goods_main from "./components/enterprise/goods_main";
+
 Vue.use(Router)
 
 export default new Router({
@@ -53,12 +60,45 @@ export default new Router({
                     path: "account",
                     component: account
                 },
+                {
+                    path: "trend",
+                    component: trend
+                },
+                {
+                    path: "interest",
+                    component: interest
+                },
+            ]
+        },
+        // 跳转到商家页面
+        {
+            path: '/enterprise',
+            name: 'enterprise',
+            component: enterprise,
+            children: [
+                // 商家的修改页面
+                {
+                    path: "modify",
+                    component: goods_modify
+                },
+                {
+                    path: '',
+                    component: goods_main
+                },
             ]
         },
 
         // 下面是  商品信息的页面
         {
-            path: '/commodity' ,component: commodity
-        }
+            path: '/commodity/:goods_id' ,
+            component: commodity
+        },
+
+        { path: '/buy',
+            name: 'buy',
+            component: buy
+        },
+
+
     ]
 })
