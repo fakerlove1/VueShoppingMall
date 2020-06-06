@@ -55,7 +55,7 @@
     import ajax from "../ajax/ajax";
     import {Loading} from 'element-ui';
 
-    // 商品的页面
+    // 展示商品的页面
     export default {
         name: "buy",
         components: {commodity_item},
@@ -83,10 +83,6 @@
                     this.$alert('请先登录', '错误提示', {
                         confirmButtonText: '确定',
                         callback: action => {
-                            // this.$message({
-                            //     type: 'info',
-                            //     message: `action: ${ action }`
-                            // });
                             console.log(action);
                             this.$router.push("/login");
                         }

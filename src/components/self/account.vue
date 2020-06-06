@@ -111,10 +111,24 @@
             }
         },
         mounted() {
-            var mes=this.$message;
-            var th=this;
+            let mes=this.$message;
+            let th=this;
+            // 账单
+            let user_id=1;
+            if(this.$store.state.user.userid===0){
+                user_id=1;
+                this.$message({
+                    showClose: true,
+                    message: '请先登录',
+                    type: 'error'
+                })
+                this.$router.push("/login");
+            }else{
+                user_id=this.$store.state.user.userid;
 
-            ajax.Dingdan(1,function (res,code) {
+            }
+
+            ajax.Dingdan(user_id,function (res,code) {
                 if(code==200&&res.code==200){
                     th.total=res.data.order.length;
                     th.loading=false;

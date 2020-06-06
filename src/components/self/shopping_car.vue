@@ -4,7 +4,7 @@
             <el-table
                     v-loading="loading"
                     ref="multipleTable"
-                    :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                    :data="tableData"
                     @selection-change="handleSelectionChange"
                     style="width: 100%">
                 <el-table-column
@@ -115,45 +115,56 @@
         },
 
         mounted() {
-            var mes=this.$message;
-            var th=this;
+            let mes=this.$message;
+            let th=this;
+            if(this.$store.state.user.status===false){
+                this.$message({
+                    showClose: true,
+                    message: '请先登录',
+                    type: 'error'
+                })
+                th.have=false;
 
-            ajax.ShoppingCar(1,function (res,code) {
-                if(code==200&&res.code==200){
-                    th.total=res.data.length;
-                    if(th.total<=0){
-                        th.have=false;
-                    }
-                    th.loading=false;
-                    th.tableData=res.data;
-                    mes({
-                        showClose: true,
-                        message: '加载成功',
-                        type: 'success'
-                    });
-                }else{
-
-                    if(code==400){
-                        // 没有数据
-                        th.have=false;
+                this.$router.push("/login");
+                // mes({
+                //     showClose: true,
+                //     message: '对不起，购买失败，请检查网络',
+                //     type: 'error'
+                // });
+            }else{
+                ajax.ShoppingCar(this.$store.state.user.userid,function (res,code) {
+                    if(code==200&&res.code==200){
+                        th.total=res.data.length;
+                        if(th.total<=0){
+                            th.have=false;
+                        }
+                        th.loading=false;
+                        th.tableData=res.data;
                         mes({
                             showClose: true,
-                            message: '对不起，购买失败，请检查网络',
-                            type: 'error'
+                            message: '加载成功',
+                            type: 'success'
                         });
                     }else{
-                        mes({
-                            showClose: true,
-                            message: res.message,
-                            type: 'error'
-                        });
+
+                        if(code==400){
+                            // 没有数据
+                            th.have=false;
+                            mes({
+                                showClose: true,
+                                message: '对不起，购买失败，请检查网络',
+                                type: 'error'
+                            });
+                        }else{
+                            mes({
+                                showClose: true,
+                                message: res.message,
+                                type: 'error'
+                            });
+                        }
                     }
-                }
-            });
-
-
-
-
+                });
+            }
         },
         methods: {
             buycar(){

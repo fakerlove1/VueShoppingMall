@@ -70,14 +70,13 @@
 </template>
 
 <script>
-    import $ from "jquery"
+    // import $ from "jquery"
     // const person =;
     // 个人 主页， 展示自己的信息
     export default {
         name: "myself",
         mounted() {
-            $(".left").height($(document).height());
-            $(".myself").height($(document).height());
+
         },
         data() {
             return{

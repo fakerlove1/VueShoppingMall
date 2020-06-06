@@ -211,11 +211,20 @@
                        ob.buy_number=item.number;
                        buyGoods.push(ob);
                    }
-                   var user_id=1;
-                   console.log(JSON.stringify({
-                       buyGoods:buyGoods,
-                       user_id:user_id
-                   }))
+
+
+                   let user_id=0;
+                   if(this.$store.state.user.userid===0){
+                       user_id=1;
+                       this.$message({
+                           showClose: true,
+                           message: '请先登录',
+                           type: 'error'
+                       })
+                   }else{
+                       user_id=this.$store.state.user.userid;
+                   }
+
                    const mes=this.$message;
                    // 清空数组
                    const th=this;

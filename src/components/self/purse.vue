@@ -30,6 +30,7 @@
                     // inputErrorMessage: '邮箱格式不正确'
                 }).then(({ value }) => {
 
+
                     var mes=this.$message;
                     ajax.AddMoney(value,1,function (res,code) {
 

@@ -1,5 +1,7 @@
 import $ from "jquery"
 
+var BaseUrl="http://localhost:81"
+
 
 export default {
 
@@ -7,7 +9,7 @@ export default {
     login(user_id, user_password, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8081/Person/Login",
+            url:  BaseUrl+"/Person/Login",
             data: {
                 user_id: user_id,
                 user_password: user_password
@@ -24,7 +26,7 @@ export default {
     ShoppingCar(user_id, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/ShoppingCar/Find",
+            url:  BaseUrl+"/ShoppingCar/Find",
             data: {
                 user_id: user_id,
             },
@@ -40,7 +42,7 @@ export default {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Good/FindGoodOne",
+            url:  BaseUrl+"/Good/FindGoodOne",
             dataType: "json",
             success: function (res) {
                 callback(res, 200);
@@ -54,7 +56,7 @@ export default {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Good/FindGoodRank",
+            url: BaseUrl+"/Good/FindGoodRank",
             dataType: "json",
             success: function (res) {
                 callback(res, 200);
@@ -69,7 +71,7 @@ export default {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Good/FindGoodOne",
+            url:  BaseUrl+"/Good/FindGoodOne",
             dataType: "json",
             success: function (res) {
                 callback(res, 200);
@@ -84,7 +86,7 @@ export default {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Good/FindGoodOne",
+            url:  BaseUrl+"/Good/FindGoodOne",
             dataType: "json",
             success: function (res) {
                 callback(res, 200);
@@ -98,7 +100,7 @@ export default {
     Goods(goods_id, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Good/FindGoodById",
+            url:  BaseUrl+"/Good/FindGoodById",
             data: {
                 goods_id: goods_id
             },
@@ -115,7 +117,7 @@ export default {
     ShoppingCarAdd(goods_id, user_id, number, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/ShoppingCar/Add",
+            url:  BaseUrl+"/ShoppingCar/Add",
             data: {
                 goods_id: goods_id,
                 user_id: user_id,
@@ -134,7 +136,7 @@ export default {
     Transfer(money, from, to, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Money/Tranfer",
+            url:  BaseUrl+"/Money/Tranfer",
             data: {
                 money: money,
                 from: from,
@@ -153,7 +155,7 @@ export default {
     BuyGoods(buyGoods, user_id, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Money/Buy",
+            url:  BaseUrl+"/Money/Buy",
             contentType: "application/json",
             data: JSON.stringify({
                 buyGoods: buyGoods,
@@ -172,7 +174,7 @@ export default {
     AddMoney(money, to, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Money/Add",
+            url:  BaseUrl+"/Money/Add",
             data: {
                 money: money,
                 to: to
@@ -191,7 +193,7 @@ export default {
     Register(user_name, user_password, user_lev, user_gender, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8081/Person/Add",
+            url:  BaseUrl+"/Person/Add",
             contentType: "application/json",
             data: JSON.stringify({
                 user_name,
@@ -212,7 +214,7 @@ export default {
     Dingdan(user_id, callback) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:9090/Order/User",
+            url:  BaseUrl+"/Order/User",
             data: {
                 user_id
             },
@@ -230,7 +232,7 @@ export default {
         Shopping(seller_id, callback) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:9090/Order/Shopping",
+                url:  BaseUrl+"/Order/Shopping",
                 data: {
                     seller_id
                 },
@@ -246,7 +248,7 @@ export default {
         Goods(seller_id, callback) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:9090/Seller/FindGoodBySellId",
+                url:  BaseUrl+"/Seller/FindGoodBySellId",
                 data: {
                     seller_id
                 },

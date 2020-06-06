@@ -1,24 +1,21 @@
-# vue_p
+# VueShoppingMall
 
-## Project setup
-```
-yarn install
-```
+*本次写的代码为 大三下学期的 项目 前端为Vue+VueX+Ajax+VueRouter+Element-UI*
+*项目为电商项目， 包括商家和用户页面*
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+2020 年6月5号
+## 商家页面
+* 添加商品
+* 修改商品信息
+* 查看自己的账单
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## 用户页面
+* 登录注册
+* 添加购物车
+* 查看账单
+* 添加地址
+* 购物商品
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 难点
+* 接入高德地图
+* Vue 实现省市县三级联动

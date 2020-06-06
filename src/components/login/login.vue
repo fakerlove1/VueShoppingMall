@@ -69,14 +69,14 @@
                             </div>
                         </div>
 
-                        <el-form-item  label="性别">
-                            <el-radio v-model="res.radio" label="0" class="gender" >男</el-radio>
-                            <el-radio v-model="res.radio" label="1" class="gender" >女</el-radio>
+                        <el-form-item label="性别">
+                            <el-radio v-model="res.radio" label="0" class="gender">男</el-radio>
+                            <el-radio v-model="res.radio" label="1" class="gender">女</el-radio>
                         </el-form-item>
 
                         <el-form-item label="注册类型">
-                            <el-radio v-model="res.lev" label="1" class="gender" >用户</el-radio>
-                            <el-radio v-model="res.lev" label="2" class="gender" >商家</el-radio>
+                            <el-radio v-model="res.lev" label="1" class="gender">用户</el-radio>
+                            <el-radio v-model="res.lev" label="2" class="gender">商家</el-radio>
                         </el-form-item>
 
                         <div class="item">
@@ -107,7 +107,6 @@
                     user_password: "",
                 },
                 res: {
-
                     radio: "0",
                     user_name: "",
                     user_password: "",

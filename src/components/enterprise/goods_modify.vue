@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-form id="form" action="http://localhost:9090/Seller/Modify" method="POST" enctype="multipart/form-data" :model="goods"  label-width="120px" class="demo-ruleForm">
+        <el-form id="form" action="http://localhost:81/Seller/Modify" method="POST" enctype="multipart/form-data" :model="goods"  label-width="120px" class="demo-ruleForm">
             <input type="hidden" name="goods_id" :value="goods.goods_id">
             <input type="hidden" name="seller_id" :value="goods.seller_id">
             <el-form-item label="修改商品图片" prop="file">

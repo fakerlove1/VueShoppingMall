@@ -125,7 +125,7 @@
                         events: {
                             //   初始化 地图
                             init(o) {
-                                console.log(o)
+                                // console.log(o)
                                 // o 是高德地图定位插件实例
                                 o.getCurrentPosition((status, result) => {
                                     console.log(result)

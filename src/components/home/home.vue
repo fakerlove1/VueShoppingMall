@@ -51,8 +51,8 @@
 
                 <!--                下面开始电商 的第二个部分-->
                 <el-row class="two">
-                    <el-col :span="4" class="two_content" v-for="(item,index) in two" :key="index">
-                        <el-card shadow="hover" body-style="padding:'10px'">
+                    <el-col :span="4" @click="jump(item.goods_id)" class="two_content" v-for="(item,index) in two" :key="index">
+                        <el-card shadow="hover" body-style="padding:'10px'"  >
                             <div>
                                 <div class="two_top">
                                     <el-image :src="item.imgurl"  class="two_image"></el-image>
@@ -82,7 +82,7 @@
                                 <h1>热销排行榜</h1>
                             </div>
                             <div class="three_content">
-                                <div v-for="(item,index) in rank_first" :key="index" class="three_content_item">
+                                <div v-for="(item,index) in rank_first" :key="index" class="three_content_item"  @click="jump(item.goods_id)">
                                     <div>
                                         <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
                                     </div>
@@ -104,7 +104,7 @@
                                 <h1>热销排行榜</h1>
                             </div>
                             <div class="three_content">
-                                <div v-for="(item,index) in rank_two" :key="index" class="three_content_item">
+                                <div v-for="(item,index) in rank_two" :key="index" class="three_content_item"  @click="jump(item.goods_id)">
                                     <div>
                                         <el-tag type="danger" class="three_content_id"> {{item.id}}</el-tag>
                                     </div>
@@ -457,6 +457,7 @@
                         ob.name=item.goods_name;
                         ob.now_price=item.sell_price;
                         ob.before_price=item.original_price;
+                        ob.goods_id=item.goods_id;
                         th.two.push(ob);
                     }
                 }else{
@@ -543,6 +544,12 @@
 
 
 
+        },
+        methods:{
+            jump(goods_id){
+                console.log(goods_id)
+                this.$router.push("/commodity/"+goods_id)
+            }
         }
     }
 </script>

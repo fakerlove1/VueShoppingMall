@@ -105,11 +105,12 @@
                 </el-table>
             </div>
             <div v-else>
-                <el-form id="form" action="http://localhost:9090/Seller/Add" method="POST" enctype="multipart/form-data" :model="upload"  label-width="120px" class="demo-ruleForm">
+                <el-form id="form" action="http://localhost:81/Seller/Add" method="POST" enctype="multipart/form-data"
+                         :model="upload" label-width="120px" class="demo-ruleForm">
                     <input type="hidden" name="seller_id" value="1">
                     <el-form-item label="商品图片" prop="file">
                         <input type="file" value="上传图片" name="file">
-                        <el-image :src="upload.banner_img" ></el-image>
+                        <el-image :src="upload.banner_img"></el-image>
                     </el-form-item>
 
                     <el-form-item label="商品名称" prop="name">
@@ -117,7 +118,7 @@
                     </el-form-item>
 
                     <el-form-item label="商品数量" prop="password">
-                        <el-input v-model="upload.surplus"  name="surplus"></el-input>
+                        <el-input v-model="upload.surplus" name="surplus"></el-input>
                     </el-form-item>
 
                     <el-form-item label="商品价格" prop="two_password">
@@ -125,7 +126,8 @@
                     </el-form-item>
 
                     <el-form-item label="商品信息" prop="information">
-                        <el-input type="textarea" v-model="upload.priviewInformation" name="priviewInformation"></el-input>
+                        <el-input type="textarea" v-model="upload.priviewInformation"
+                                  name="priviewInformation"></el-input>
                     </el-form-item>
 
                     <el-form-item>
@@ -146,93 +148,105 @@
 
     export default {
         name: "goods_main",
-        data(){
-            return{
-                bill:[],
-                total:10,
-                currentPage:1,
-                pagesize:5,
-                activeIndex:1,
-                goods:[],
-                upload:{
-                    banner_img:"",
-                    goods_name:"",
-                    surplus:0,
-                    sell_pric:0,
-                    priviewInformation:""
+        data() {
+            return {
+                bill: [],
+                total: 10,
+                currentPage: 1,
+                pagesize: 5,
+                activeIndex: 1,
+                goods: [],
+                upload: {
+                    banner_img: "",
+                    goods_name: "",
+                    surplus: 0,
+                    sell_pric: 0,
+                    priviewInformation: ""
                 }
             }
         },
-        methods:{
+        methods: {
             // 这里是添加商品
-            submitForm(){
-                var mes=this.$message
+            submitForm() {
+                var mes = this.$message
                 // 提交表单
                 // jquery 表单提交
-                $("#form").ajaxSubmit(function(result) {
+                $("#form").ajaxSubmit(function (result) {
                     // 对于表单提交成功后处理，result为表单正常提交后返回的内容
                     if (result.code === 200) {
                         mes({
-                            type:"success",
-                            showClose:true,
-                            message:"添加物品成功",
+                            type: "success",
+                            showClose: true,
+                            message: "添加物品成功",
                         })
-                    }else{
+                    } else {
                         mes({
-                            type:"error",
-                            showClose:true,
-                            message:"添加物品失败",
+                            type: "error",
+                            showClose: true,
+                            message: "添加物品失败",
                         })
                     }
                 });
                 return false; // 必须返回false，否则表单会自己再做一次提交操作，并且页面跳转
             },
-            prev_click(res){
-                this.currentPage=res;
+            prev_click(res) {
+                this.currentPage = res;
             },
-            next_click(res){
-                this.currentPage=res;
+            next_click(res) {
+                this.currentPage = res;
             },
-            handleCurrentChange(val){
-                this.currentPage=val;
+            handleCurrentChange(val) {
+                this.currentPage = val;
             },
-            handleSelect(value){
-                this.activeIndex=value;
+            handleSelect(value) {
+                this.activeIndex = value;
             },
-            modify(value){
+            modify(value) {
                 this.$router.push(
                     {
                         path: "/enterprise/modify",
                         query: {
-                            goods:value
+                            goods: value
                         }
                     })
             },
 
         },
         mounted() {
-            var th=this;
-            var mes=this.$message;
+            var th = this;
+            var mes = this.$message;
 
-            ajax.Seller.Shopping(1,function (res,code) {
-                if(code==200&&res.code==200){
-                    th.bill=res.data.order;
-                    for(var item in th.bill){
-                        th.bill[item]["order"]["order_time"] =utils.getFormateDateByLong(th.bill[item]["order"]["order_time"]);
-                        if(th.bill[item]["person"]["user_gender"]===0){
-                            th.bill[item]["person"]["user_gender"]="男性买家";
-                        }else{
-                            th.bill[item]["person"]["user_gender"]="女性买家";
+            let user_id=0;
+            if(this.$store.state.user.userid===0){
+                user_id=1;
+                this.$message({
+                    showClose: true,
+                    message: '请先登录',
+                    type: 'error'
+                })
+            }else{
+                user_id=this.$store.state.user.userid;
+            }
+
+            ajax.Seller.Shopping(user_id, function (res, code) {
+                if (code == 200 && res.code == 200) {
+                    th.bill = res.data.order;
+                    for (var item in th.bill) {
+                        th.bill[item]["order"]["order_time"] = utils.getFormateDateByLong(th.bill[item]["order"]["order_time"]);
+                        if (th.bill[item]["person"]["user_gender"] === 0) {
+                            th.bill[item]["person"]["user_gender"] = "男性买家";
+                        } else {
+                            th.bill[item]["person"]["user_gender"] = "女性买家";
                         }
                     }
-                }else{
-                    if(code==400){
+                } else {
+                    if (code == 400) {
                         mes({
                             showClose: true,
                             message: '对不起，登录失败，请检查网络',
                             type: 'error'
                         });
-                    }else{
+                    } else {
                         mes({
                             showClose: true,
                             message: res.message,
@@ -242,25 +256,25 @@
                 }
             });
 
-            ajax.Seller.Goods(1,function (res,code) {
-                if(code==200&&res.code==200){
-                    th.goods=res.data.Goods;
+            ajax.Seller.Goods(1, function (res, code) {
+                if (code == 200 && res.code == 200) {
+                    th.goods = res.data.Goods;
                     mes({
                         showClose: true,
                         message: '加载成功',
                         type: 'success'
                     });
-                }else{
+                } else {
 
-                    if(code==400){
+                    if (code == 400) {
                         // 没有数据
-                        th.have=false;
+                        th.have = false;
                         mes({
                             showClose: true,
                             message: '对不起，购买失败，请检查网络',
                             type: 'error'
                         });
-                    }else{
+                    } else {
                         mes({
                             showClose: true,
                             message: res.message,

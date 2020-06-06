@@ -1,7 +1,7 @@
 <template>
     <div class="add">
-        <el-form id="form" action="http://localhost:8081/Person/Modify" method="POST" enctype="multipart/form-data" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-            <input type="hidden" name="user_id" value="7">
+        <el-form id="form" action="http://localhost:81/Person/Modify" method="POST" enctype="multipart/form-data" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+            <input type="hidden" name="user_id" value="">
             <el-form-item label="修改头像" prop="file">
                 <input type="file" value="上传头像" name="file">
                 <el-image class="touxiang" ></el-image>
@@ -55,6 +55,7 @@
             return {
                 // 表单规则
                 ruleForm: {
+                    user_id:0,
                     user_name: '',
                     user_password: '',
                     two_password:'',
@@ -91,7 +92,7 @@
             // 提交表单
             submitForm() {
 
-                var mes=this.$message
+                let mes=this.$message
                 // 提交表单
                 // jquery 表单提交
                 $("#form").ajaxSubmit(function(result) {
@@ -117,6 +118,19 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             }
+        },
+        mounted() {
+            if(this.$store.state.user.status===false){
+                this.ruleForm.user_id=this.$store.state.user.userid;
+            }else {
+                this.ruleForm.user_id=7;
+                this.$message({
+                    showClose:true,
+                    message:"请先登录",
+                    type:"error"
+                })
+            }
+
         }
     }
 </script>
